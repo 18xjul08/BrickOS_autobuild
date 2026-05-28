@@ -1,7 +1,6 @@
 work_dir=$(pwd)
 source $work_dir/functions.sh
 repS="python3 $work_dir/bin/strRep.py"
-sdkLevel=$(cat $work_dir/build/baserom/images/system/system/build.prop |grep "ro.build.version.sdk" |cut -d "=" -f 2 |awk 'NR==1')
 if [[ ! -d $dir/jar_temp ]]; then
 
 	mkdir $dir/jar_temp
@@ -13,8 +12,8 @@ jar_util()
     cd $work_dir
     #binary
     if [[ $3 == "fw" ]]; then 
-        bak="java -jar $work_dir/bin/apktool/baksmaliv2.jar d --api $sdkLevel"
-        sma="java -jar $work_dir/bin/apktool/smaliv2.jar a --api $sdkLevel"
+        bak="java -jar $work_dir/bin/apktool/baksmaliv2.jar d --api 35"
+        sma="java -jar $work_dir/bin/apktool/smaliv2.jar a --api 35"
     fi
 
     if [[ $1 == "d" ]]; then
@@ -77,47 +76,8 @@ find_and_replace() {
     local replace=$2
     local base_dir=$work_dir/jar_temp/miui-services.jar.out
 	local files=(
-        "ActivityManagerServiceImpl.smali"
-        "BroadcastQueueModernStubImpl.smali"
-        "MiProcessTracker.smali"
-        "AppOpsServiceState.smali"
-        "AppOpsServiceStubImpl.smali"
-        "MiuiBatteryServiceImpl.smali"
-        "AlarmManagerServiceStubImpl.smali"
-        "MutableActivityManagerShellCommandStubImpl.smali"
-        "PreStartFeedbackImpl.smali"
-        "ProcessManagerService.smali"
-        "ProcessPolicy.smali"
-        "ProcessSceneCleaner.smali"
-        "AudioServiceStubImpl.smali"
-        "ClipboardChecker.smali"
-        "ClipboardServiceStubImpl.smali"
-        "DevicePolicyManagerServiceStubImpl.smali"
-        "InputManagerServiceStubImpl.smali"
-        "InputMethodManagerServiceImpl.smali"
-        "SogouInputMethodSwitcher.smali"
-        "JobServiceContextImpl.smali"
-        "NotificationManagerServiceImpl.smali"
-        "ActivityTaskManagerServiceImpl.smali"
-		"SecurityManagerService.smali"
-		"GreezeManagerService.smali"
-		"XSpaceManagerServiceImpl.smali"
-        "BroadcastQueueImpl.smali"
-        "GnssEventTrackingImpl.smali"
-        "PackageManagerServiceImpl.smali"
-        "MiuiShortcutTriggerHelper\$ShortcutSettingsObserver.smali"
-        "ActivityTaskSupervisorImpl.smali"
-        "MiuiSplitInputMethodImpl.smali"
-        "WindowManagerServiceImpl.smali"
-        "DeviceIdleControllerStubImpl.smali"
-        "AppOpsServiceStubImpl.smali"
         "ForceDarkAppListManager.smali"
-        "MiuiBatteryIntelligence.smali"
-        "MiuiBatteryServiceImpl.smali"
-        "MiuiBatteryStatsService\$BatteryStatsHandler.smali"
-        "SystemServerImpl.smali"
-        "AlarmManagerServiceStubImpl.smali"
-        "SystemServerImpl.smali"
+		"SystemServerImpl.smali"
 		"ActivityManagerServiceImpl.smali"
 		"BroadcastQueueModernStubImpl.smali"
 		"ProcessManagerService.smali"
@@ -146,7 +106,7 @@ miui-services() {
 	
 	p1=$(find "$work_dir/jar_temp/" -type f -name PolicyManager.smali)
 
-    find_and_replace "Lmiui/os/Build;->IS_INTERNATIONAL_BUILD:Z" "Lmiui/os/Buildv2;->IS_OPENSOURCE_BUILD:Z"
+    find_and_replace "Lmiui/os/Build;->IS_INTERNATIONAL_BUILD:Z" "Lmiui/os/Build;->IS_MIUI:Z"
 	
 	sed -i '/sput-boolean v[0-9]\+, Lcom\/miui\/server\/greeze\/PolicyManager;->CN_MODEL:Z/a\
 \n    const/4 v0, 0x0' $p1

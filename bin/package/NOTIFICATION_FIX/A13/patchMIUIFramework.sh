@@ -1,18 +1,23 @@
 work_dir=$(pwd)
-source $work_dir/functions.sh
 repS="python3 $work_dir/bin/strRep.py"
-sdkLevel=$(cat $work_dir/build/baserom/images/system/system/build.prop |grep "ro.build.version.sdk" |cut -d "=" -f 2 |awk 'NR==1')
+source $work_dir/functions.sh
+if [[ ! -d $dir/jar_temp ]]; then
+
+	mkdir $dir/jar_temp
+	
+fi
+
 jar_util() 
 {
     cd $work_dir
     #binary
     if [[ $3 == "fw" ]]; then 
-        bak="java -jar $work_dir/bin/apktool/baksmaliv2.jar d --api $sdkLevel"
-        sma="java -jar $work_dir/bin/apktool/smaliv2.jar a --api $sdkLevel"
+        bak="java -jar $work_dir/bin/apktool/baksmaliv2.jar d --api 33"
+        sma="java -jar $work_dir/bin/apktool/smaliv2.jar a --api 33"
     fi
 
     if [[ $1 == "d" ]]; then
-        patch -ne "$2"
+        patch "Patching $2 : "
         if [[ -f $work_dir/build/baserom/images/system_ext/framework/miui-framework.jar ]]; then
             sudo cp $work_dir/build/baserom/images/system_ext/framework/miui-framework.jar $work_dir/jar_temp
             sudo chown $(whoami) $work_dir/jar_temp/$2
@@ -71,10 +76,6 @@ find_and_replace() {
     local files=(
         "AppOpsManagerInjector.smali"
         "ApplicationPackageManagerInjector.smali"
-        "NearbyUtils.smali"
-        "ShortcutFunctionManager.smali"
-        "SymlinkUtils.smali"
-        "MultiLangHelper.smali"
     )
 
     for file in "${files[@]}"; do
@@ -90,16 +91,7 @@ find_and_replace() {
 miui-framework() {
     jar_util d "miui-framework.jar" fw
 
-    search="Lmiui/os/Build;->IS_INTERNATIONAL_BUILD:Z"
-    replace="Lmiui/os/Buildv2;->IS_OPENSOURCE_BUILD:Z"
-    
-    find_and_replace "$search" "$replace"
-
-    find_and_replace "ro.product.mod_device" "ro.product.xmregion"
-
-    find_and_replace "CN" ""
-
-    cp -rf "$work_dir/bin/package/NOTIFICATION_FIX/smali/" "$work_dir/jar_temp/miui-framework.jar.out/smali/"
+    find_and_replace "Lmiui/os/Build;->IS_INTERNATIONAL_BUILD:Z" "Lmiui/os/Build;->IS_MIUI:Z"
 
     jar_util a "miui-framework.jar" 
 }
