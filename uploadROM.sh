@@ -33,9 +33,9 @@ else
 fi
 
 if [[ $rom_os == "MIUI" ]];then
-    os_type="MIUI"
+    os_type="BrickUI"
 else
-    os_type="HyperOS"
+    os_type="BrickOS"
 fi
 
 repack "Compressing super.img"
