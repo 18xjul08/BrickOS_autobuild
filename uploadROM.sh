@@ -66,12 +66,12 @@ zip -r ${os_type}_${device_code}_${base_rom_code}.zip ./*
 mv ${os_type}_${device_code}_${base_rom_code}.zip ../
 popd || exit
 hash=$(md5sum out/${os_type}_${device_code}_${base_rom_code}.zip |head -c 5)
-mv out/${os_type}_${device_code}_${base_rom_code}.zip out/${os_type}_${polyxver}_${device_code}_${base_rom_code}_${hash}_${status}.zip
+mv out/${os_type}_${device_code}_${base_rom_code}.zip out/${os_type}_${polyxver}_${device_code}_${base_rom_code}.zip
 repack "Build completed"    
 repack "Output: "
-repack "$(pwd)/out/${os_type}_${polyxver}_${device_code}_${base_rom_code}_${hash}_${status}.zip"
+repack "$(pwd)/out/${os_type}_${polyxver}_${device_code}_${base_rom_code}.zip"
 upload "Uploading"
-output_file="out/${os_type}_${polyxver}_${device_code}_${base_rom_code}_${hash}_${status}.zip"
+output_file="out/${os_type}_${polyxver}_${device_code}_${base_rom_code}.zip"
 
 if [[ $rom_os == "MIUI" ]];then
     uploaddir="MIUI"
@@ -81,12 +81,12 @@ fi
 
 # 1drive
 if [[ $rom_os == "MIUI" ]]; then
-    rclone -v --config="$RCLONE_CONFIG_1DRIVE" copy "$output_file" "$ONEDRIVE_REMOTE:NTBuild/${uploaddir}/${polyxver}/${device_code}/" || {
+    rclone -v --config="$RCLONE_CONFIG_1DRIVE" copy "$output_file" "$ONEDRIVE_REMOTE:BrickOS/${uploaddir}/${polyxver}/${device_code}/" || {
         upload "Error uploading file to OneDrive: $FILENAME"
         exit 1
     }
 else
-    rclone -v --config="$RCLONE_CONFIG_1DRIVE" copy "$output_file" "$ONEDRIVE_REMOTE:NTBuild/${uploaddir}/${polyxver}/${device_code}/" || {
+    rclone -v --config="$RCLONE_CONFIG_1DRIVE" copy "$output_file" "$ONEDRIVE_REMOTE:BrickOS/${uploaddir}/${polyxver}/${device_code}/" || {
         upload "Error uploading file to OneDrive: $FILENAME"
         exit 1
     }
