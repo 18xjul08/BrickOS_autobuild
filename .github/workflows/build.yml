@@ -1,4 +1,4 @@
-name: NothingsVN Xiaomi ROM Build
+name: BrickOS Autobuild
 
 on:
   workflow_dispatch:
