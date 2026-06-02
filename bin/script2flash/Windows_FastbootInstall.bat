@@ -42,15 +42,6 @@ for /f %%i in ('dir /b *.img.zst') do (
    	META-INF\zstd -d !par!.img.zst -o !par!.img
 )
 
-if /I "%CHOICE%" == "y" (
-	echo.  Formatting...
-	!fastboot! erase frp  >NUL 2>NUL
-	!fastboot! erase userdata  >NUL 2>NUL
-        !fastboot! erase metadata  >NUL 2>NUL
-	echo.
-)
-
-
 for /f %%i in ('dir /b images') do (
 	set par=%%~ni
 	set url=images\%%i
@@ -74,6 +65,13 @@ if exist super.img (
         del /s /q super.img >nul 2>nul 
 )
 
+if /I "%CHOICE%" == "y" (
+	echo.  Formatting...
+	!fastboot! erase frp  >NUL 2>NUL
+	!fastboot! erase userdata  >NUL 2>NUL
+        !fastboot! erase metadata  >NUL 2>NUL
+	echo.
+)
 if !fqlx! == AB (!fastboot! set_active a  >NUL 2>NUL)
 !fastboot! reboot 
 
