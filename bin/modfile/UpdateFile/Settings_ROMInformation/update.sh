@@ -67,7 +67,7 @@ mods "Add ROM Information To HyperOS"
   mods "Updating build.prop"
   echo "ro.nothings.version=BrickOS $myversion | $final_version" >> $my
   echo "ro.nothings.osversion=${simposcode}.${build_date}" >> $my
-  echo "ro.nothings.simposcode=BrickOS $myversion by manvancongggg  " >> $my
+  echo "ro.nothings.simposcode=BrickOS $myversion - $final_version " >> $my
 
   mods "Rebuild..."
   Settings=$(basename $isSettings)
