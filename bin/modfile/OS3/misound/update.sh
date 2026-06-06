@@ -7,6 +7,8 @@ MiSoundDIR=$(find "$MAIN_FOLDER" -type d -name "MiSound")
 
 
 if [[ $rom_os == "OS3" ]];then
+mods "Add Sound By Bose"
     rm -rf $MiSoundDIR/*.apk
     cp -rf $WORK_DIR/bin/modfile/OS3/misound/MiSound.apk $MiSoundDIR
+mods "Add Sound by Bose Done"
 fi
