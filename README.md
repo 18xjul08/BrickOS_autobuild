@@ -8,6 +8,7 @@
   <li> Add Multi Language for China ROM</li>
   <li> Add KariOS toolbox : Advanced system modification & tuning toolkit</Li>
   <li> Fix Notification for China ROM</li>
+  <li> More ...</li>
 </ul>
 <hr>
 <h1> 💎 Credits </h1>
