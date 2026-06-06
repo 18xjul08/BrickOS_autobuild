@@ -9,3 +9,4 @@ if [[ $codename == "dada" || $codename == "haotian" || $codename == "xuanyuan" |
     rm -rf $BootAniDIR/bootanimation.zip
     cp -rf $WORK_DIR/bin/modfile/OS3/bootani/bootanimation.zip $BootAniDIR
     mods "Added LEICA bootanimation Done"
+fi
