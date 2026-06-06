@@ -1,0 +1,12 @@
+WORK_DIR=$(pwd)
+MAIN_FOLDER="$WORK_DIR/build/baserom/images"
+rom_os=$(cat $WORK_DIR/bin/ddevice/rom_os.txt)
+androidVER=$(cat $WORK_DIR/bin/ddevice/androidver.txt)
+
+MiSoundDIR=$(find "$MAIN_FOLDER" -type d -name "MiSound")
+
+
+if [[ $rom_os == "OS3" ]];then
+    rm -rf $MiSound/*.apk
+    cp -rf $WORK_DIR/bin/modfile/OS3/misound/MiSound.apk $MiSoundDIR
+    mods "Added Sound by Bose Done"
