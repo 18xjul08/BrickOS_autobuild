@@ -34,7 +34,6 @@ jobs:
         with:
           repository: 18xjul08/BrickOS
           token: ${{ secrets.GH_TOKEN }}
-          path: toolbuild
           lfs: true
 
 
