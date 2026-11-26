@@ -78,5 +78,5 @@ jobs:
       - name: Upload ROM...
         run: |
        
-          sudo env RCLONE_DRIVE_PACER_MIN_SLEEP=1s RCLONE_DRIVE_PACER_BURST=1 bash uploadROM.sh
+            sudo -E bash uploadROM.sh
       
